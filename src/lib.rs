@@ -5,20 +5,20 @@ use std::sync::LazyLock;
 use bc_signals::ready::ready_imports::*;
 use bc_signals::ready::{
     change_signal::CHANGE_SIGNAL, change_src::CHANGE_SRC, convert::CONVERT, copy::COPY,
-    filter::FILTER, invert::INVERT, pumpdump::PUMPDUMP, repeat::REPEAT,
+    filter::FILTER, invert::INVERT, th::TH, repeat::REPEAT,
     set_probability::SET_PROBABILITY,
 };
 use bc_utils_lg::types::maps::MAP;
 
-use bc_utils_lg::settings::SETTINGS_SIGNAL;
+use bc_utils_lg::structs::settings::SETTINGS_SIGNAL;
 
 pub static FUNCS_EXTRACT_ARGS: LazyLock<fn() -> MAP<&'static str, fn(&SETTINGS_SIGNAL) -> Box<dyn SignalReady>>> = LazyLock::new(|| {
     || {
         MAP::from_iter([
             (
-                "pumpdump",
+                "th",
                 (|setting: &SETTINGS_SIGNAL| {
-                    let mut df = PUMPDUMP::default();
+                    let mut df = TH::default();
                     df.set_th_min(*setting.kwargs_f64.get("th_min").unwrap_or(&df.th_min));
                     df.set_th_max(*setting.kwargs_f64.get("th_max").unwrap_or(&df.th_max));
                     df.set_limit(*setting.kwargs_f64.get("limit").unwrap_or(&df.limit));
