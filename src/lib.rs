@@ -2,7 +2,7 @@
 
 use std::sync::LazyLock;
 
-use bc_signals::ready::ready_imports::*;
+use bc_signals::ready::prelude::*;
 use bc_signals::ready::{
     change_signal::CHANGE_SIGNAL, change_src::CHANGE_SRC, convert::CONVERT, copy::COPY,
     filter::FILTER, invert::INVERT, th::TH, repeat::REPEAT,
